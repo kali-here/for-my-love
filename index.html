@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS is now inside the HTML file --- */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            /* Reverted to the original romantic gradient */
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            color: #5c3b3b;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #flower-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .flower {
+            position: absolute;
+            top: -10vh; /* Start above the screen */
+            color: white;
+            font-size: 2rem;
+            opacity: 0.7;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+            100% {
+                transform: translateY(120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            animation: fadeInScreen 0.5s ease-in-out forwards;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+        
+        #intro-screen {
+            background-color: rgba(252, 196, 255, 0.644);
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes fadeInScreen {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1, h2 {
+            font-family: 'Pacifico', cursive;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        #intro-screen h1, #intro-screen button {
+             color: #5c3b3b;
+             text-shadow: none;
+        }
+
+        .main-gif {
+            max-width: 250px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        button {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2em;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.2s ease-in-out;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        #start-btn, #submit-name-btn, #ask-button, #proceed-btn {
+            background-color: #ffffff;
+            color: #e57373;
+            margin-top: 20px;
+        }
+        
+        #start-btn {
+             color: #5c3b3b;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #ffffff;
+            font-size: 1.1em;
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .error {
+            color: #7b1212;
+            margin-top: 10px;
+            font-weight: bold;
+            min-height: 24px;
+        }
+
+        .button-container {
+            position: relative;
+            width: 300px;
+            height: 100px;
+            margin-top: 30px;
+        }
+
+        #yes-btn {
+            background-color: #a5d6a7;
+            color: white;
+            position: absolute;
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #no-btn {
+            background-color: #ef9a9a;
+            color: white;
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.1s ease-out;
+        }
+
+        #main-screen .main-gif,
+        #main-screen .message,
+        #main-screen #ask-button,
+        #quote-screen .message,
+        #quote-screen #proceed-btn {
+            animation: fadeInContent 1s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        #main-screen .message:nth-of-type(1) { animation-delay: 0.5s; }
+        #main-screen p.message { animation-delay: 1.5s; } /* More pause after first line */
+        #main-screen #ask-button { animation-delay: 3.0s; } /* More pause before button appears */
+            
+        /* --- Adjusted Timings for Sequential Typewriter --- */
+        #quote-screen .message:nth-of-type(1) { animation-delay: 0.5s; } /* Starts first */
+        #quote-screen .message:nth-of-type(2) { animation-delay: 3.5s; } /* Longer pause after first line */
+        #quote-screen .message:nth-of-type(3) { animation-delay: 6.5s; } /* Longer pause after second line */
+        #quote-screen #proceed-btn { animation-delay: 9.5s; } /* Longer pause before button appears */
+
+
+        @keyframes fadeInContent {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .glow {
+            animation: glowing 2s ease-in-out infinite;
+        }
+        
+        @keyframes glowing {
+            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #ff7a9d, 0 0 15px #ff7a9d; }
+            50% { text-shadow: 0 0 10px #fff, 0 0 20px #ff7a9d, 0 0 30px #ff7a9d; }
+        }
+
+        .typewriter {
+            overflow: hidden; 
+            border-right: .15em solid white; 
+            white-space: nowrap; 
+            margin: 0 auto; 
+            letter-spacing: .10em; 
+            animation: 
+                typing 2s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: white; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="flower-container"></div>
+
+    <div id="intro-screen" class="screen active">
+        <h1>Shall we begin our story? 🌹</h1>
+        <button id="start-btn">Click Here</button>
+    </div>
+
+    <div id="gate-screen" class="screen">
+        <h1>Please enter your name</h1>
+        <input type="text" id="name-input" placeholder="Your name...">
+        <button id="submit-name-btn">Enter</button>
+        <p id="error-message" class="error"></p>
+    </div>
+
+    <div id="main-screen" class="screen">
+        <img src="https://media.tenor.com/E-2a_d1LII0AAAAi/mocha-and.gif" alt="Cute bear hug" class="main-gif">
+        <h2 class="message">For the most <span class="glow">S P E C I A L</span> person... 💌</h2>
+        <p class="message">In a world full of maybes, you are my certain...</p>
+        <button id="ask-button">I have to tell you something...</button>
+    </div>
+    
+    <div id="quote-screen" class="screen">
+        <h2 class="message typewriter">Meeting you was fate, </h2>
+        <h2 class="message typewriter">becoming your friend was a choice, </h2>
+        <h2 class="message typewriter">but falling for <span class="glow">you</span>… I had no control over.❤️</h2>
+        <button id="proceed-btn">So... What i am asking is that...</button>
+    </div>
+
+    <div id="proposal-screen" class="screen">
+        <h2>Will you do me the honor... and go on a date with me? ✨</h2>
+        <div class="button-container">
+            <button id="yes-btn">Yes</button>
+            <button id="no-btn">No</button>
+        </div>
+    </div>
+    
+    <div id="final-screen" class="screen">
+        <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-love.gif" alt="Yay!" class="main-gif">
+        <h2>Yay! See you soon! ❤️</h2>
+    </div>
+
+    <audio id="love-song" src="song.mp3" loop></audio>
+
+    <script>
+        const SECRET_NAME = "Vaishnavi";
+
+        const introScreen = document.getElementById('intro-screen');
+        const gateScreen = document.getElementById('gate-screen');
+        const mainScreen = document.getElementById('main-screen');
+        const quoteScreen = document.getElementById('quote-screen');
+        const proposalScreen = document.getElementById('proposal-screen');
+        const finalScreen = document.getElementById('final-screen');
+
+        const startBtn = document.getElementById('start-btn');
+        const nameInput = document.getElementById('name-input');
+        const submitNameBtn = document.getElementById('submit-name-btn');
+        const errorMessage = document.getElementById('error-message');
+
+        const askButton = document.getElementById('ask-button');
+        const proceedBtn = document.getElementById('proceed-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+        const buttonContainer = document.querySelector('.button-container');
+
+        const loveSong = document.getElementById('love-song');
+
+        // --- New Flower Animation Logic ---
+        const flowerContainer = document.getElementById('flower-container');
+        const flowers = ['🌷', '🌹', '🌸', '🌼', '🌺'];
+
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.fontSize = (Math.random() * 1.5 + 1) + 'rem'; // Size between 1rem and 2.5rem
+            flower.style.animationDuration = (Math.random() * 5 + 7) + 's'; // Duration between 7s and 12s
+            flower.style.animationDelay = Math.random() * 5 + 's'; // Delay up to 5s
+
+            flowerContainer.appendChild(flower);
+        }
+
+        for (let i = 0; i < 30; i++) {
+            createFlower();
+        }
+        // --- End of Flower Logic ---
+
+        startBtn.addEventListener('click', () => {
+            introScreen.classList.remove('active');
+            gateScreen.classList.add('active');
+            if (loveSong) loveSong.play();
+        });
+
+        submitNameBtn.addEventListener('click', () => {
+            if (nameInput.value.trim().toLowerCase() === SECRET_NAME.toLowerCase()) {
+                gateScreen.classList.remove('active');
+                mainScreen.classList.add('active');
+            } else {
+                errorMessage.textContent = "Sorry, that's not the right name...";
+                nameInput.value = "";
+            }
+        });
+
+        askButton.addEventListener('click', () => {
+            mainScreen.classList.remove('active');
+            quoteScreen.classList.add('active');
+        });
+        
+        proceedBtn.addEventListener('click', () => {
+            quoteScreen.classList.remove('active');
+            proposalScreen.classList.add('active');
+        });
+
+        const moveButton = () => {
+            const containerRect = buttonContainer.getBoundingClientRect();
+            const noBtnRect = noBtn.getBoundingClientRect();
+
+            const newX = Math.random() * (containerRect.width - noBtnRect.width);
+            const newY = Math.random() * (containerRect.height - noBtnRect.height);
+            
+            noBtn.style.right = 'auto'; 
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
+            noBtn.style.transform = 'none';
+        };
+
+        buttonContainer.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const noBtnRect = noBtn.getBoundingClientRect();
+
+            const distance = Math.sqrt(
+                Math.pow(mouseX - (noBtnRect.left + noBtnRect.width / 2), 2) +
+                Math.pow(mouseY - (noBtnRect.top + noBtnRect.height / 2), 2)
+            );
+
+            if (distance < 100) {
+                moveButton();
+            }
+        });
+
+        noBtn.addEventListener('mouseenter', moveButton);
+
+        yesBtn.addEventListener('click', () => {
+            proposalScreen.classList.remove('active');
+            finalScreen.classList.add('active');
+        });
+    </script>
+</body>
+</html>
+
