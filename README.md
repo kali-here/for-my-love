@@ -1,1 +1,3 @@
-I made this for my love, but I never got the chance to show it to her. Maybe you could—just change the name to the one you love, and enjoy it! All the best buddy!
+I made this for my love, because she missed her murder mystery program because of the rain...
+
+I do not own any of the thing, i used this for my personal use only and i don't have any motive to use it for public.
